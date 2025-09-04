@@ -1,20 +1,30 @@
+/* Calibri + bold in footer */
+.footer, .footer * {
+  font-family: Calibri, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+}
+
 .footer {
   background: linear-gradient(180deg, #272727, #1f1f1f);
   color: #eee;
   padding: 28px 40px;
   text-align: center;
   margin-top: 80px;
-  box-shadow: 0 -8px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.25);
   animation: fadeInUp 0.6s ease-in-out;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.footer p { margin: 0; font-size: 14px; opacity: 0.9; }
+.footer p {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.95;
+}
 
 .footer-links {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
-  gap: 16px;
+  gap: 18px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -22,7 +32,7 @@
 .footer-links a {
   color: #d4d4d4;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
   border-bottom: 1px dashed transparent;
   transition: color 0.25s, border-color 0.25s, transform 0.2s;
 }
@@ -33,6 +43,12 @@
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

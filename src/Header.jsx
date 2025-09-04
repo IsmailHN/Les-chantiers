@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Fragment } from "react";
 import "./Header.css";
 import logo from "./assets/images/logo.png";
 
@@ -47,11 +47,12 @@ const NAV = [
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [openIndex, setOpenIndex] = useState(-1); // which dropdown is open (desktop)
-  const [mobileOpen, setMobileOpen] = useState(false); // for the small-screen Menu button
+  const [openIndex, setOpenIndex] = useState(-1);   // desktop dropdown
+  const [mobileOpen, setMobileOpen] = useState(false); // mobile drawer
   const rootRef = useRef(null);
 
-  // scroll color switch
+  const dimIsOn = openIndex > -1 || mobileOpen;
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
@@ -59,7 +60,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // click outside to close
   useEffect(() => {
     const onDocClick = (e) => {
       if (!rootRef.current || rootRef.current.contains(e.target)) return;
@@ -71,69 +71,78 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`header ${scrolled ? "scrolled" : ""}`} ref={rootRef}>
-      <div className="header-left">
-        <img src={logo} alt="Logo" className="header-logo" />
-        <div className="site-name">LES-CHANTIERS</div>
-      </div>
-
-      {/* Desktop nav */}
-      <nav className="nav">
-        {NAV.map((group, i) => (
-          <div
-            key={group.label}
-            className="nav-item"
-            onMouseEnter={() => setOpenIndex(i)}
-            onMouseLeave={() => setOpenIndex((x) => (x === i ? -1 : x))}
-          >
-            <button
-              className="nav-btn"
-              aria-haspopup="menu"
-              aria-expanded={openIndex === i}
-              onClick={() => setOpenIndex((x) => (x === i ? -1 : i))}
-            >
-              {group.label}
-              <svg
-                className={`chev ${openIndex === i ? "up" : ""}`}
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" />
-              </svg>
-            </button>
-
-            {openIndex === i && (
-              <div className={`menu-panel ${scrolled ? "light" : "dark"}`} role="menu">
-                {group.links.map((l) => (
-                  <a key={l.href} href={l.href} className="menu-link" role="menuitem">
-                    {l.label}
-                  </a>
-                ))}
-              </div>
-            )}
+    <Fragment>
+      <header className={`header ${scrolled ? "scrolled" : ""}`} ref={rootRef}>
+        <div className="container">
+          {/* Left: brand */}
+          <div className="brand">
+            <img src={logo} alt="Logo" className="brand-logo" />
+            <span className="brand-name">LES-CHANTIERS</span>
           </div>
-        ))}
-      </nav>
 
-      {/* Mobile Menu button */}
-      <div className="mobile-menu">
-        <button
-          className="dropdown-btn"
-          onClick={() => setMobileOpen((v) => !v)}
-          aria-expanded={mobileOpen}
-          aria-haspopup="menu"
-        >
-          Menu ▾
-        </button>
+          {/* Middle: desktop nav */}
+          <nav className="nav">
+            {NAV.map((group, i) => (
+              <div
+                key={group.label}
+                className="nav-item"
+                onMouseEnter={() => setOpenIndex(i)}
+                onMouseLeave={() => setOpenIndex((x) => (x === i ? -1 : x))}
+              >
+                <button
+                  className="nav-btn"
+                  aria-haspopup="menu"
+                  aria-expanded={openIndex === i}
+                  onClick={() => setOpenIndex((x) => (x === i ? -1 : i))}
+                >
+                  {group.label}
+                  <svg className={`chev ${openIndex === i ? "up" : ""}`} viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </button>
+
+                {openIndex === i && (
+                  <div className={`menu-panel glass ${scrolled ? "light" : "dark"}`} role="menu">
+                    {group.links.map((l) => (
+                      <a key={l.href} href={l.href} className="menu-link" role="menuitem">
+                        {l.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+         
+
+          {/* Mobile: hamburger (three lines) */}
+          <button
+            className={`hamburger ${mobileOpen ? "active" : ""}`}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        {/* Mobile dropdown panel */}
         {mobileOpen && (
-          <div className={`mobile-panel ${scrolled ? "light" : "dark"}`} role="menu">
+          <div className={`mobile-panel glass ${scrolled ? "light" : "dark"}`} role="menu">
             {NAV.map((g) => (
               <div key={g.label} className="mobile-group">
                 <div className="mobile-group-title">{g.label}</div>
                 {g.links.map((l) => (
-                  <a key={l.href} href={l.href} className="menu-link" role="menuitem">
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="menu-link"
+                    role="menuitem"
+                    onClick={() => setMobileOpen(false)}
+                  >
                     {l.label}
                   </a>
                 ))}
@@ -141,8 +150,20 @@ const Header = () => {
             ))}
           </div>
         )}
-      </div>
-    </header>
+      </header>
+
+      {/* Dim the page when any menu is open (not covering header) */}
+      {dimIsOn && (
+        <div
+          className={`screen-dim ${scrolled ? "light" : "dark"}`}
+          onClick={() => {
+            setOpenIndex(-1);
+            setMobileOpen(false);
+          }}
+          aria-hidden="true"
+        />
+      )}
+    </Fragment>
   );
 };
 
