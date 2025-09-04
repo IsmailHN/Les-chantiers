@@ -114,9 +114,8 @@ const Header = () => {
             ))}
           </nav>
 
-         
-
-          {/* Mobile: hamburger (three lines) */}
+        
+          {/* Mobile: hamburger */}
           <button
             className={`hamburger ${mobileOpen ? "active" : ""}`}
             aria-label="Open menu"
@@ -152,7 +151,7 @@ const Header = () => {
         )}
       </header>
 
-      {/* Dim the page when any menu is open (not covering header) */}
+      {/* Dim the page when any menu is open */}
       {dimIsOn && (
         <div
           className={`screen-dim ${scrolled ? "light" : "dark"}`}
