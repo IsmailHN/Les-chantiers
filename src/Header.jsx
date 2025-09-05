@@ -10,6 +10,7 @@ const NAV = [
       { label: "About us", to: "/about-us" },
       { label: "Leadership", to: "/leadership" },
       { label: "Newsroom", to: "/news" },
+      { label: "Contact", to: "/contact" },       // <-- added here
     ],
   },
   {
@@ -73,15 +74,9 @@ const Header = () => {
   }, []);
 
   const clearHoverTimer = () => {
-    if (hoverTimer.current) {
-      clearTimeout(hoverTimer.current);
-      hoverTimer.current = null;
-    }
+    if (hoverTimer.current) { clearTimeout(hoverTimer.current); hoverTimer.current = null; }
   };
-  const openDropdown = (i) => {
-    clearHoverTimer();
-    setOpenIndex(i);
-  };
+  const openDropdown = (i) => { clearHoverTimer(); setOpenIndex(i); };
   const scheduleClose = () => {
     clearHoverTimer();
     hoverTimer.current = setTimeout(() => setOpenIndex(-1), 130);
@@ -131,10 +126,7 @@ const Header = () => {
                         to={link.to}
                         className="menu-link"
                         role="menuitem"
-                        onClick={() => {
-                          setOpenIndex(-1);
-                          setMobileOpen(false);
-                        }}
+                        onClick={() => { setOpenIndex(-1); setMobileOpen(false); }}
                       >
                         {link.label}
                       </Link>
@@ -185,10 +177,7 @@ const Header = () => {
       {dimIsOn && (
         <div
           className={`screen-dim ${scrolled ? "light" : "dark"}`}
-          onClick={() => {
-            setOpenIndex(-1);
-            setMobileOpen(false);
-          }}
+          onClick={() => { setOpenIndex(-1); setMobileOpen(false); }}
           aria-hidden="true"
         />
       )}
