@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Home.css";
@@ -17,7 +18,7 @@ const Home = () => {
         <img src={heroLogo} alt="Logo" className="hero-logo" />
         <h1 className="title">Welcome to LES-CHANTIERS</h1>
         <p className="subtitle">Sea Technology &amp; Innovation</p>
-        <a className="explore-btn" href="/about-us">About us →</a>
+        <Link className="explore-btn" to="/about-us">About us →</Link>
       </section>
 
       <section className="solutions">

@@ -1,4 +1,4 @@
-/* Calibri UI; brand title uses a serif like KONGSBERG */
+/* Calibri UI; brand title  */
 .header, .header * {
   font-family: Calibri, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 700;
@@ -38,14 +38,16 @@
 }
 
 /* ---- Brand link (no blue/underline) ---- */
+/* Brand link (unstyled) */
 .brand-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  text-decoration: none;  /* remove underline */
-  color: inherit;         /* keep header color (white/black) */
+  text-decoration: none;
+  color: inherit;
 }
 .brand-link:hover { color: inherit; }
+
 
 .brand-logo { width: 32px; height: 32px; object-fit: contain; }
 .brand-name {

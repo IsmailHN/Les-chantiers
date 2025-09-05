@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 import logo from "./assets/images/logo.png";
 
@@ -6,41 +7,41 @@ const NAV = [
   {
     label: "Who we are",
     links: [
-      { label: "About us", href: "/about-us" },
-      { label: "Leadership", href: "/leadership" },
-      { label: "Newsroom", href: "/news" },
+      { label: "About us", to: "/about-us" },
+      { label: "Leadership", to: "/leadership" },
+      { label: "Newsroom", to: "/news" },
     ],
   },
   {
     label: "What we do",
     links: [
-      { label: "Products", href: "/products" },
-      { label: "Solutions", href: "/solutions" },
-      { label: "Case studies", href: "/cases" },
+      { label: "Products", to: "/products" },
+      { label: "Solutions", to: "/solutions" },
+      { label: "Case studies", to: "/cases" },
     ],
   },
   {
     label: "Our commitment",
     links: [
-      { label: "Sustainability", href: "/sustainability" },
-      { label: "Ethics & compliance", href: "/ethics" },
-      { label: "Community", href: "/community" },
+      { label: "Sustainability", to: "/sustainability" },
+      { label: "Ethics & compliance", to: "/ethics" },
+      { label: "Community", to: "/community" },
     ],
   },
   {
     label: "Careers",
     links: [
-      { label: "Open roles", href: "/careers" },
-      { label: "Life at LC", href: "/life" },
-      { label: "Early careers", href: "/graduates" },
+      { label: "Open roles", to: "/careers" },
+      { label: "Life at LC", to: "/life" },
+      { label: "Early careers", to: "/graduates" },
     ],
   },
   {
     label: "Investors",
     links: [
-      { label: "Financials", href: "/investors/financials" },
-      { label: "Reports", href: "/investors/reports" },
-      { label: "Contact IR", href: "/investors/contact" },
+      { label: "Financials", to: "/investors/financials" },
+      { label: "Reports", to: "/investors/reports" },
+      { label: "Contact IR", to: "/investors/contact" },
     ],
   },
 ];
@@ -61,7 +62,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close on outside click
   useEffect(() => {
     const onDocClick = (e) => {
       if (!rootRef.current || rootRef.current.contains(e.target)) return;
@@ -84,7 +84,6 @@ const Header = () => {
   };
   const scheduleClose = () => {
     clearHoverTimer();
-    // tiny delay prevents flicker when moving from button → panel
     hoverTimer.current = setTimeout(() => setOpenIndex(-1), 130);
   };
 
@@ -92,11 +91,11 @@ const Header = () => {
     <Fragment>
       <header className={`header ${scrolled ? "scrolled" : ""}`} ref={rootRef}>
         <div className="container">
-          {/* Brand (link to home, no blue/underline) */}
-          <a href="/" className="brand-link" aria-label="Go to home">
+          {/* Brand link to home (unstyled link) */}
+          <Link to="/" className="brand-link" aria-label="Go to home">
             <img src={logo} alt="Logo" className="brand-logo" />
             <span className="brand-name">LES-CHANTIERS</span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="nav">
@@ -127,9 +126,9 @@ const Header = () => {
                     onMouseLeave={scheduleClose}
                   >
                     {group.links.map((link) => (
-                      <a
+                      <Link
                         key={link.label}
-                        href={link.href}
+                        to={link.to}
                         className="menu-link"
                         role="menuitem"
                         onClick={() => {
@@ -138,7 +137,7 @@ const Header = () => {
                         }}
                       >
                         {link.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -166,15 +165,15 @@ const Header = () => {
               <div key={g.label} className="mobile-group">
                 <div className="mobile-group-title">{g.label}</div>
                 {g.links.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
-                    href={link.href}
+                    to={link.to}
                     className="menu-link"
                     role="menuitem"
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}
