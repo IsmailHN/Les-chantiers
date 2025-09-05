@@ -34,7 +34,7 @@ const AboutUs = () => {
 
           <h3 className="about-subtitle">Our mission is clear</h3>
           <p className="about-text">
-            We deliver Kongsberg’s cutting-edge solutions with the highest standards of service—
+            We deliver Chantiers’s cutting-edge solutions with the highest standards of service—
             ensuring your operations are <strong>smarter</strong>, <strong>safer</strong>, and
             <strong> more efficient</strong>. Partner with a team that understands your challenges
             and is dedicated to your success.

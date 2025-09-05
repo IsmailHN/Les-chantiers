@@ -1,146 +1,105 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Contact.css";
+import heroLogo from "./assets/images/logo.png";
 
-/** Build x-www-form-urlencoded body the way Netlify expects */
-const encode = (data) =>
-  Object.keys(data)
-    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
+// ✅ Update these if you ever need to change them
+const EMAIL = "";
+const PHONE_NUMBER_DISPLAY = "+212 5 22 12 34 56";
+const PHONE_NUMBER_TEL = "+212522123456"; // tel-safe format (digits only)
 
 const Contact = () => {
-  const [submitting, setSubmitting] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalKind, setModalKind] = useState("success"); // 'success' | 'error'
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-
-    const form = e.target;
-    const payload = {
-      "form-name": form.getAttribute("name"),
-      firstName: form.firstName.value,
-      lastName: form.lastName.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      subject: form.subject.value,
-      message: form.message.value,
-    };
-
-    const isLocalhost =
-      window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1";
-
-    try {
-      if (isLocalhost) {
-        // Netlify doesn’t process forms locally; simulate success so you can test the UI.
-        await new Promise((r) => setTimeout(r, 600));
-        setModalKind("success");
-        form.reset();
-      } else {
-        // Try a normal fetch first (some sites need no-cors due to redirect behavior).
-        let res = await fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode(payload),
-        });
-
-        // If we didn’t get a 2xx, try no-cors and assume success (opaque response).
-        if (!res.ok) {
-          await fetch("/", {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode(payload),
-          });
-        }
-
-        setModalKind("success");
-        form.reset();
-      }
-    } catch (err) {
-      console.error("Form submit error:", err);
-      setModalKind("error");
-    } finally {
-      setSubmitting(false);
-      setModalOpen(true);
-    }
-  };
+  // Prebuilt compose links
+  const gmailLink = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(EMAIL)}`;
+  const outlookLink = `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(EMAIL)}`;
+  const mailtoLink = `mailto:${EMAIL}`;
 
   return (
     <div className="contact-page">
       <Header />
 
-      <section className="contact-wrap">
-        <div className="contact-container">
-          <h1 className="contact-title">Contact Us</h1>
-          <p className="contact-subtitle">
-            We’d love to hear from you. Fill out the form and we’ll get back to you shortly.
-          </p>
-
-          <form
-            className="contact-form"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
-            onSubmit={handleSubmit}
-          >
-            {/* Netlify hidden fields */}
-            <input type="hidden" name="form-name" value="contact" />
-            <p className="hidden-field">
-              <label>Don’t fill this out: <input name="bot-field" /></label>
-            </p>
-
-            <div className="form-row">
-              <input type="text" name="firstName" placeholder="First Name" required />
-              <input type="text" name="lastName" placeholder="Last Name" required />
-            </div>
-
-            <div className="form-row">
-              <input type="email" name="email" placeholder="Email" required />
-              <input type="tel" name="phone" placeholder="Phone Number" />
-            </div>
-
-            <input type="text" name="subject" placeholder="Subject" required />
-            <textarea name="message" rows="6" placeholder="Your message..." required />
-
-            <button type="submit" className="submit-btn" disabled={submitting}>
-              {submitting ? "Sending..." : "Send Message"}
-            </button>
-          </form>
-        </div>
+      {/* Hero (same vibe as AboutUs) */}
+      <section className="hero contact-hero">
+        <img src={heroLogo} alt="Logo" className="hero-logo" />
+        <h1 className="title">Get in touch</h1>
+        <p className="subtitle">We’re here to help you move faster and safer.</p>
       </section>
 
-      {/* Centered modal */}
-      {modalOpen && (
-        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
-          <div
-            className={`modal ${modalKind === "success" ? "ok" : "err"}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {modalKind === "success" ? (
-              <>
-                <div className="modal-icon">✅</div>
-                <h3>Your message has been submitted successfully</h3>
-                <p>We’ll contact you at the email you provided.</p>
-              </>
-            ) : (
-              <>
-                <div className="modal-icon">❌</div>
-                <h3>Something went wrong</h3>
-                <p>Please try again later.</p>
-              </>
-            )}
-            <button className="modal-close" onClick={() => setModalOpen(false)}>
-              Close
-            </button>
+      {/* Cards only */}
+      <section className="contact-cards-wrap">
+        <div className="contact-cards">
+          {/* Email Card */}
+          <div className="contact-card">
+            <div className="card-icon email" aria-hidden="true">
+              {/* Envelope icon */}
+              <svg viewBox="0 0 48 48">
+                <path d="M6 12h36a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z" fill="currentColor" opacity=".12"/>
+                <path d="M6 12h36a2 2 0 0 1 2 2v.5L24 28 4 14.5V14a2 2 0 0 1 2-2z" fill="currentColor"/>
+                <path d="M42 36H6a2 2 0 0 1-2-2V14.5L24 28l20-13.5V34a2 2 0 0 1-2 2z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="card-title">Email</h3>
+            <p className="card-text">
+              Choose your email service to write us directly at <strong>{EMAIL}</strong>.
+            </p>
+
+            <div className="btn-row">
+              <a className="card-btn primary" href={gmailLink} target="_blank" rel="noreferrer">
+                {/* Gmail logo mark */}
+                <svg className="btn-ico" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#EA4335" d="M12 13.5L3 7v10a2 2 0 0 0 2 2h3v-7l4 3 4-3v7h3a2 2 0 0 0 2-2V7z"/>
+                  <path fill="#FBBC05" d="M21 7.5v-.5l-9 6-9-6v.5l9 6z"/>
+                  <path fill="#34A853" d="M15 19h3a2 2 0 0 0 2-2v-8l-5 3.3z"/>
+                  <path fill="#4285F4" d="M6 19h3v-6.7L4 9v8a2 2 0 0 0 2 2z"/>
+                </svg>
+                Gmail
+              </a>
+
+              <a className="card-btn" href={outlookLink} target="_blank" rel="noreferrer">
+                {/* Outlook logo mark */}
+                <svg className="btn-ico" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#0A66C2" d="M4 5h10v14H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/>
+                  <rect x="10" y="8" width="12" height="10" rx="1.5" ry="1.5" fill="#106EBE" opacity=".25"/>
+                  <circle cx="9" cy="12" r="2.8" fill="#fff"/>
+                </svg>
+                Outlook
+              </a>
+
+              <a className="card-btn subtle" href={mailtoLink}>
+                {/* Mail icon */}
+                <svg className="btn-ico" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 6h16a2 2 0 0 1 2 2v.4L12 14 2 8.4V8a2 2 0 0 1 2-2z" fill="currentColor"/>
+                  <path d="M22 18H2a2 2 0 0 1-2-2V8.4L12 14l12-5.6V16a2 2 0 0 1-2 2z" fill="currentColor" opacity=".6"/>
+                </svg>
+                Email App
+              </a>
+            </div>
+          </div>
+
+          {/* Phone Card */}
+          <div className="contact-card">
+            <div className="card-icon phone" aria-hidden="true">
+              {/* Phone icon */}
+              <svg viewBox="0 0 48 48">
+                <path d="M32.5 30.6c1.7 1.7 3.7 3 6 3.6l2.6.7a2 2 0 0 1 1.5 1.9v5a2 2 0 0 1-2.2 2c-7.2-.6-14-4.1-19.3-9.4S12.3 24.6 11.7 17.4A2 2 0 0 1 13.7 15h5a2 2 0 0 1 1.9 1.5l.7 2.6c.6 2.3 1.9 4.3 3.6 6l6.6 5.5z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 className="card-title">Phone</h3>
+            <p className="card-text">
+              Call us directly — we’re available during business hours.
+            </p>
+
+            <a className="card-btn primary" href={`tel:${PHONE_NUMBER_TEL}`}>
+              {/* Dial icon */}
+              <svg className="btn-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.23c1.2.48 2.5.75 3.8.79a1 1 0 0 1 1 1v3.4a1 1 0 0 1-1 1C12.3 21.9 2.1 11.7 2.3 2.7a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c.05 1.3.31 2.6.8 3.8a1 1 0 0 1-.23 1.1L6.6 10.8z" fill="currentColor"/>
+              </svg>
+              {PHONE_NUMBER_DISPLAY}
+            </a>
           </div>
         </div>
-      )}
+      </section>
 
       <Footer />
     </div>
