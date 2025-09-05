@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <p>© 2025 LES-CHANTIERS • All rights reserved.</p>
       <div className="footer-links">
-        <a href="/about">About</a>
+        <a href="/about-us">About</a>
         <a href="/contact">Contact</a>
         <a href="/privacy">Privacy Policy</a>
       </div>
