@@ -1,4 +1,4 @@
-/* Calibri UI for most text; Brand title uses a serif (KONGSBERG-like) */
+/* Calibri UI; brand title uses a serif like KONGSBERG */
 .header, .header * {
   font-family: Calibri, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 700;
@@ -13,108 +13,99 @@
   align-items: center;
   z-index: 1000;
 
-  /* transparent over hero */
   background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0));
   color: #fff;
   transition: background .3s ease, color .3s ease, box-shadow .3s ease;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
-
-/* When scrolled: solid white and black text */
 .header.scrolled {
   background: #fff;
-  color: #000; /* makes ALL header text black */
+  color: #000; /* all header text turns black when scrolled */
   box-shadow: 0 1px 0 rgba(0,0,0,.08);
   backdrop-filter: none;
 }
 
-/* Full-width row with tight left padding to push logo/title left */
+/* Row */
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 0 14px;               /* 👈 closer to the screen edge */
+  padding: 0 14px;                  /* push brand toward the left edge */
   display: grid;
-  grid-template-columns: auto 1fr auto; /* brand | spacer | (hamburger) */
+  grid-template-columns: auto 1fr auto; /* brand | spacer | hamburger */
   align-items: center;
   gap: 16px;
 }
 
-/* Brand (logo + title) */
-.brand {
+/* ---- Brand link (no blue/underline) ---- */
+.brand-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;                      /* tighter gap between logo & title */
+  gap: 8px;
+  text-decoration: none;  /* remove underline */
+  color: inherit;         /* keep header color (white/black) */
 }
+.brand-link:hover { color: inherit; }
 
-.brand-logo {
-  width: 32px;                   /* a touch smaller so title fits one line */
-  height: 32px;
-  object-fit: contain;
-}
-
-/* Title styled like KONGSBERG, but smaller & single-line */
+.brand-logo { width: 32px; height: 32px; object-fit: contain; }
 .brand-name {
   font-family: "Times New Roman", Georgia, "Libre Baskerville", serif;
   font-weight: 600;
-  font-size: 18px;               /* 👈 smaller to stay on one line */
+  font-size: 18px;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  white-space: nowrap;           /* keep on one line */
-  color: inherit;                /* white on hero, black on scroll */
+  white-space: nowrap;
+  color: inherit;
   transition: color .3s ease;
 }
 
-/* Center nav (desktop) */
+/* Desktop nav */
 .nav {
   justify-self: center;
   display: none;
   gap: 26px;
 }
-@media (min-width: 992px) {
-  .nav { display: flex; }
-}
+@media (min-width: 992px) { .nav { display: flex; } }
 
 .nav-item { position: relative; }
 
+/* small invisible bridge so moving down doesn't trigger leave gap */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: -8px; right: -8px;
+  top: 100%;
+  height: 8px;
+}
+
+/* top-level button */
 .nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: none;
-  background: transparent;
-  color: inherit;                /* inherits white / black */
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px 6px;
-  border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: none; background: transparent; color: inherit; cursor: pointer;
+  font-size: 16px; padding: 10px 6px; border-radius: 8px;
   transition: background .2s ease, color .2s ease;
 }
 .header:not(.scrolled) .nav-btn:hover { background: rgba(255,255,255,.08); }
 .header.scrolled .nav-btn:hover { background: rgba(0,0,0,.06); }
 
-.chev {
-  width: 14px; height: 14px;
-  opacity: .9;
-  transition: transform .2s ease;
-}
+.chev { width: 14px; height: 14px; opacity: .9; transition: transform .2s ease; }
 .chev.up { transform: rotate(180deg); }
 
-/* Dropdown (slightly left, glass, blurred) */
+/* Dropdown (glass + shifted left) */
 .menu-panel {
   position: absolute;
   top: calc(100% + 12px);
-  left: -16px;                   /* nudge left */
-  transform: translateX(-6px);   /* extra nudge */
+  left: -16px;
+  transform: translateX(-6px);
   min-width: 230px;
   border-radius: 14px;
   padding: 10px;
   overflow: hidden;
   box-shadow: 0 18px 48px rgba(0,0,0,.28);
   animation: slideDown .18s ease-out;
+  z-index: 1100; /* above header content */
 }
-
 .glass.dark {
   background: rgba(20,20,20,.55);
   border: 1px solid rgba(255,255,255,.14);
@@ -128,12 +119,14 @@
   backdrop-filter: blur(12px);
 }
 
+/* Dropdown links */
 .menu-link {
   display: block;
   padding: 11px 12px;
   border-radius: 10px;
   text-decoration: none;
   font-size: 15px;
+  cursor: pointer;
   transition: background .15s, transform .15s;
 }
 .glass.dark .menu-link { color: #f5f5f5; }
@@ -141,24 +134,18 @@
 .glass.light .menu-link { color: #111; }
 .glass.light .menu-link:hover { background: rgba(0,0,0,.06); transform: translateX(2px); }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translate(-6px,-8px); }
-  to   { opacity: 1; transform: translate(-6px,0); }
-}
+@keyframes slideDown { from { opacity: 0; transform: translate(-6px,-8px);} to { opacity: 1; transform: translate(-6px,0);} }
 
-/* Dim the page under header when dropdown open */
+/* Dimmer */
 .screen-dim {
-  position: fixed;
-  top: 76px;
-  left: 0; right: 0; bottom: 0;
-  z-index: 950;
-  animation: dimIn .12s ease-out both;
+  position: fixed; top: 76px; left: 0; right: 0; bottom: 0;
+  z-index: 950; animation: dimIn .12s ease-out both;
 }
 .screen-dim.dark { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
 .screen-dim.light { background: rgba(0,0,0,.25); backdrop-filter: blur(2px); }
 @keyframes dimIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ---------- MOBILE ---------- */
+/* Mobile hamburger */
 .hamburger {
   grid-column: 3 / 4;
   justify-self: end;
@@ -166,15 +153,11 @@
   display: inline-flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 7px;
-  background: transparent; border: none; cursor: pointer;
-  color: inherit;                /* white → black on scroll */
+  background: transparent; border: none; cursor: pointer; color: inherit;
 }
 .hamburger span {
-  display: block;
-  width: 34px; height: 4px;
-  background: currentColor;
-  border-radius: 3px;
-  transition: transform .25s ease, opacity .2s ease;
+  display: block; width: 34px; height: 4px; background: currentColor;
+  border-radius: 3px; transition: transform .25s ease, opacity .2s ease;
 }
 .hamburger.active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
@@ -193,10 +176,7 @@
   box-shadow: 0 18px 48px rgba(0,0,0,.28);
   animation: mSlide .2s ease-out both;
 }
-@keyframes mSlide {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes mSlide { from { opacity: 0; transform: translateY(-8px);} to { opacity: 1; transform: translateY(0);} }
 .mobile-group + .mobile-group { margin-top: 12px; }
 .mobile-group-title { font-weight: 800; font-size: 15px; opacity: .9; margin: 6px 6px 4px; }
 .mobile-panel .menu-link { padding: 10px 12px; }

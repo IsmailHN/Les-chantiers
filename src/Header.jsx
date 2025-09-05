@@ -6,7 +6,7 @@ const NAV = [
   {
     label: "Who we are",
     links: [
-      { label: "About us", href: "/about" },
+      { label: "About us", href: "/about-us" },
       { label: "Leadership", href: "/leadership" },
       { label: "Newsroom", href: "/news" },
     ],
@@ -47,8 +47,9 @@ const NAV = [
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [openIndex, setOpenIndex] = useState(-1);   // desktop dropdown
-  const [mobileOpen, setMobileOpen] = useState(false); // mobile drawer
+  const [openIndex, setOpenIndex] = useState(-1);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const hoverTimer = useRef(null);
   const rootRef = useRef(null);
 
   const dimIsOn = openIndex > -1 || mobileOpen;
@@ -60,6 +61,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // close on outside click
   useEffect(() => {
     const onDocClick = (e) => {
       if (!rootRef.current || rootRef.current.contains(e.target)) return;
@@ -70,24 +72,40 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
+  const clearHoverTimer = () => {
+    if (hoverTimer.current) {
+      clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
+  };
+  const openDropdown = (i) => {
+    clearHoverTimer();
+    setOpenIndex(i);
+  };
+  const scheduleClose = () => {
+    clearHoverTimer();
+    // tiny delay prevents flicker when moving from button → panel
+    hoverTimer.current = setTimeout(() => setOpenIndex(-1), 130);
+  };
+
   return (
     <Fragment>
       <header className={`header ${scrolled ? "scrolled" : ""}`} ref={rootRef}>
         <div className="container">
-          {/* Left: brand */}
-          <div className="brand">
+          {/* Brand (link to home, no blue/underline) */}
+          <a href="/" className="brand-link" aria-label="Go to home">
             <img src={logo} alt="Logo" className="brand-logo" />
             <span className="brand-name">LES-CHANTIERS</span>
-          </div>
+          </a>
 
-          {/* Middle: desktop nav */}
+          {/* Desktop nav */}
           <nav className="nav">
             {NAV.map((group, i) => (
               <div
                 key={group.label}
                 className="nav-item"
-                onMouseEnter={() => setOpenIndex(i)}
-                onMouseLeave={() => setOpenIndex((x) => (x === i ? -1 : x))}
+                onMouseEnter={() => openDropdown(i)}
+                onMouseLeave={scheduleClose}
               >
                 <button
                   className="nav-btn"
@@ -102,10 +120,24 @@ const Header = () => {
                 </button>
 
                 {openIndex === i && (
-                  <div className={`menu-panel glass ${scrolled ? "light" : "dark"}`} role="menu">
-                    {group.links.map((l) => (
-                      <a key={l.href} href={l.href} className="menu-link" role="menuitem">
-                        {l.label}
+                  <div
+                    className={`menu-panel glass ${scrolled ? "light" : "dark"}`}
+                    role="menu"
+                    onMouseEnter={clearHoverTimer}
+                    onMouseLeave={scheduleClose}
+                  >
+                    {group.links.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        className="menu-link"
+                        role="menuitem"
+                        onClick={() => {
+                          setOpenIndex(-1);
+                          setMobileOpen(false);
+                        }}
+                      >
+                        {link.label}
                       </a>
                     ))}
                   </div>
@@ -114,8 +146,7 @@ const Header = () => {
             ))}
           </nav>
 
-        
-          {/* Mobile: hamburger */}
+          {/* Mobile hamburger */}
           <button
             className={`hamburger ${mobileOpen ? "active" : ""}`}
             aria-label="Open menu"
@@ -128,21 +159,21 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile dropdown panel */}
+        {/* Mobile dropdown */}
         {mobileOpen && (
           <div className={`mobile-panel glass ${scrolled ? "light" : "dark"}`} role="menu">
             {NAV.map((g) => (
               <div key={g.label} className="mobile-group">
                 <div className="mobile-group-title">{g.label}</div>
-                {g.links.map((l) => (
+                {g.links.map((link) => (
                   <a
-                    key={l.href}
-                    href={l.href}
+                    key={link.label}
+                    href={link.href}
                     className="menu-link"
                     role="menuitem"
                     onClick={() => setMobileOpen(false)}
                   >
-                    {l.label}
+                    {link.label}
                   </a>
                 ))}
               </div>
@@ -151,7 +182,7 @@ const Header = () => {
         )}
       </header>
 
-      {/* Dim the page when any menu is open */}
+      {/* Dim page (not header) when any menu is open */}
       {dimIsOn && (
         <div
           className={`screen-dim ${scrolled ? "light" : "dark"}`}

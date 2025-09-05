@@ -1,147 +1,50 @@
+html { scroll-behavior: smooth; }
+
 .home {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-/* Hero: full screen with animated gradient */
+/* Hero */
 .hero {
   min-height: 100vh;
   background: linear-gradient(270deg, #667eea, #764ba2, #6dd5ed, #2193b0);
   background-size: 800% 800%;
   animation: gradientBG 12s ease infinite;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 0 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; color: white; padding: 0 20px;
 }
-
-/* Nice vignette so white header text pops */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(1200px 500px at 50% 0%, rgba(0,0,0,0.35), transparent 60%);
-  pointer-events: none;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Add top padding equal to header height so centered content isn't covered visually */
-.hero .hero-logo { position: relative; z-index: 1; }
-
-.hero-logo {
-  width: 120px;
-  margin-bottom: 20px;
-  animation: fadeIn 1.2s ease-in-out both;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
-}
-
-.title {
-  font-size: clamp(28px, 5vw, 48px);
-  margin-bottom: 10px;
-  animation: slideIn 0.9s ease-in-out both;
-}
-
-.subtitle {
-  font-size: clamp(16px, 2.5vw, 22px);
-  margin-bottom: 24px;
-  opacity: 0.95;
-  animation: fadeIn 1.6s ease-in-out both;
-}
-
+.hero::after { content:""; position:absolute; inset:0; background: radial-gradient(1200px 500px at 50% 0%, rgba(0,0,0,0.35), transparent 60%); pointer-events:none; }
+@keyframes gradientBG { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.hero-logo { width:120px; margin-bottom:20px; animation:fadeIn 1.2s ease both; filter: drop-shadow(0 4px 12px rgba(0,0,0,.35)); }
+.title { font-size: clamp(28px, 5vw, 48px); margin-bottom:10px; animation:slideIn .9s ease both; }
+.subtitle { font-size: clamp(16px, 2.5vw, 22px); margin-bottom:24px; opacity:.95; animation:fadeIn 1.6s ease both; }
 .explore-btn {
-  padding: 12px 24px;
-  font-size: 16px;
-  background: #ffffff;
-  color: #333;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.25s, background 0.25s, box-shadow 0.25s;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  display:inline-block; text-decoration:none;
+  padding:12px 24px; font-size:16px; background:#fff; color:#333; border:none;
+  border-radius:10px; cursor:pointer; transition:transform .25s, background .25s, box-shadow .25s;
+  box-shadow:0 10px 24px rgba(0,0,0,.18);
 }
-.explore-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  background: #f4f4f4;
-}
+.explore-btn:hover { transform: translateY(-2px) scale(1.03); background:#f4f4f4; }
 
-/* Solutions Section */
+/* Solutions */
 .solutions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 30px;
-  padding: 80px 20px 60px;
-  background: #f9f9f9;
-  animation: fadeInUp 0.9s ease-in-out both;
+  display:flex; justify-content:center; flex-wrap:wrap; gap:30px;
+  padding: 70px 20px 60px; background:#f9f9f9; animation:fadeInUp .9s ease both;
 }
-
 .solution-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0px 12px 28px rgba(0,0,0,0.12);
-  width: min(100%, 340px);
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.25s, box-shadow 0.25s;
+  background:#fff; border-radius:16px; box-shadow:0 12px 28px rgba(0,0,0,.12);
+  width:min(100%, 340px); padding:20px; text-align:center;
+  transition:transform .25s, box-shadow .25s;
 }
-.solution-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0px 18px 36px rgba(0,0,0,0.16);
-}
-
-.solution-card img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 14px;
-}
-
-.solution-card h2 {
-  margin: 6px 0 8px;
-  font-size: 20px;
-}
-
-.solution-card p {
-  font-size: 14px;
-  color: #4a4a4a;
-}
-
-.solution-btn {
-  margin-top: 12px;
-  background: none;
-  border: 2px solid #764ba2;
-  color: #764ba2;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-.solution-btn:hover {
-  background: #764ba2;
-  color: #fff;
-}
+.solution-card:hover { transform: translateY(-8px); box-shadow:0 18px 36px rgba(0,0,0,.16); }
+.solution-card img { width:100%; height:190px; object-fit:cover; border-radius:12px; margin-bottom:14px; }
+.solution-card h2 { margin:6px 0 8px; font-size:20px; }
+.solution-card p { font-size:14px; color:#4a4a4a; }
+.solution-btn { margin-top:12px; background:none; border:2px solid #764ba2; color:#764ba2; padding:10px 18px; border-radius:10px; cursor:pointer; transition:all .25s; }
+.solution-btn:hover { background:#764ba2; color:#fff; }
 
 /* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateY(-24px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { transform: translateY(-24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
