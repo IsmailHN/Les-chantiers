@@ -8,9 +8,10 @@ const NAV = [
     label: "Who we are",
     links: [
       { label: "About us", to: "/about-us" },
+      { label: "Contact", to: "/contact" },  
       { label: "Leadership", to: "/leadership" },
       { label: "Newsroom", to: "/news" },
-      { label: "Contact", to: "/contact" },       // <-- added here
+           // <-- added here
     ],
   },
   {
