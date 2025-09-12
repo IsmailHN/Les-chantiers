@@ -14,6 +14,7 @@ const Home = () => {
     <div className="home">
       <Header />
 
+      {/* Hero Section */}
       <section className="hero">
         <img src={heroLogo} alt="Logo" className="hero-logo" />
         <h1 className="title">Welcome to LES-CHANTIERS</h1>
@@ -21,26 +22,27 @@ const Home = () => {
         <Link className="explore-btn" to="/about-us">About us →</Link>
       </section>
 
+      {/* Solutions Section */}
       <section className="solutions">
         <div className="solution-card">
           <img src={imgMaritime} alt="Maritime" />
           <h2>Maritime Solutions</h2>
           <p>Advanced maritime systems designed for efficiency, safety, and sustainability.</p>
-          <button className="solution-btn">Explore Maritime →</button>
+          <Link className="solution-btn" to="/maritime">Explore Maritime →</Link>
         </div>
 
         <div className="solution-card">
           <img src={imgDiscovery} alt="Discovery" />
           <h2>Discovery Solutions</h2>
           <p>Explore new frontiers with autonomous vehicles, sonar systems, and scientific tools.</p>
-          <button className="solution-btn">Explore Discovery →</button>
+          <Link className="solution-btn" to="/discovery">Explore Discovery →</Link>
         </div>
 
         <div className="solution-card">
           <img src={imgDigital} alt="Digital" />
           <h2>Digital Solutions</h2>
           <p>Unlock potential with digital twins, integrated platforms, and smart data ecosystems.</p>
-          <button className="solution-btn">Explore Digital →</button>
+          <Link className="solution-btn" to="/digital">Explore Digital →</Link>
         </div>
       </section>
 
