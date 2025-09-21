@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import "./Digital.css"; // ✅ correct case
+import "./Digital.css";
 import heroLogo from "./assets/images/logo.png";
 
 const Digital = () => {
@@ -9,31 +9,63 @@ const Digital = () => {
     <div className="digital-page">
       <Header />
 
-      {/* Hero (animated gradient like other pages) */}
+      {/* Hero */}
       <section className="digital-hero">
         <img src={heroLogo} alt="Logo" className="hero-logo" />
         <h1 className="hero-title">Digital Solutions</h1>
         <p className="hero-subtitle">
-          Unlock the full potential of your assets with digital twins, integrated platforms,
-          and smart data ecosystems.
+          Platforms, analytics, and lifecycle services that connect assets, people,
+          and data—driving safer and more efficient operations.
         </p>
       </section>
 
-      {/* 12 editable containers */}
+      {/* Cards (only these five) */}
       <section className="digital-wrap">
         <div className="digital-grid">
-          <article className="digital-card"><h3>Container 1 Title</h3><p>Write your text for container 1 here. Describe your digital capability or product.</p></article>
-          <article className="digital-card"><h3>Container 2 Title</h3><p>Write your text for container 2 here. Use cases, features, or benefits go here.</p></article>
-          <article className="digital-card"><h3>Container 3 Title</h3><p>Write your text for container 3 here. Add details you want users to know.</p></article>
-          <article className="digital-card"><h3>Container 4 Title</h3><p>Write your text for container 4 here. You can paste longer content if needed.</p></article>
-          <article className="digital-card"><h3>Container 5 Title</h3><p>Write your text for container 5 here. Keep it concise and impactful.</p></article>
-          <article className="digital-card"><h3>Container 6 Title</h3><p>Write your text for container 6 here. Bullet points work with &lt;ul&gt;&lt;li&gt;.</p></article>
-          <article className="digital-card"><h3>Container 7 Title</h3><p>Write your text for container 7 here. Highlight a key platform or data flow.</p></article>
-          <article className="digital-card"><h3>Container 8 Title</h3><p>Write your text for container 8 here. Mention reliability, scalability, or integrations.</p></article>
-          <article className="digital-card"><h3>Container 9 Title</h3><p>Write your text for container 9 here. Add certifications/standards if relevant.</p></article>
-          <article className="digital-card"><h3>Container 10 Title</h3><p>Write your text for container 10 here. You can also add links/CTAs.</p></article>
-          <article className="digital-card"><h3>Container 11 Title</h3><p>Write your text for container 11 here. Keep consistent tone across cards.</p></article>
-          <article className="digital-card"><h3>Container 12 Title</h3><p>Write your text for container 12 here. Summarize value and invite contact.</p></article>
+          {/* Products */}
+          <article className="digital-card">
+            <h3>Products</h3>
+            <p>
+              Digital twins, onboard applications, data acquisition gateways,
+              and secure cloud services designed for maritime operations.
+            </p>
+          </article>
+
+          {/* Solutions */}
+          <article className="digital-card">
+            <h3>Solutions</h3>
+            <p>
+              Fleet performance, fuel optimization, remote assistance,
+              compliance reporting, and integrated bridge digital workflows.
+            </p>
+          </article>
+
+          {/* Resources */}
+          <article className="digital-card">
+            <h3>Resources</h3>
+            <p>
+              Product documents, release notes, SDKs, training guides, and
+              best-practice playbooks to help your teams move faster.
+            </p>
+          </article>
+
+          {/* Partners */}
+          <article className="digital-card">
+            <h3>Partners</h3>
+            <p>
+              Technology and service partners enabling certified integrations,
+              turnkey deployments, and regional expertise.
+            </p>
+          </article>
+
+          {/* Company */}
+          <article className="digital-card">
+            <h3>Company</h3>
+            <p>
+              A trusted team with 25+ years in maritime technology—focused on
+              safety, reliability, and measurable value for operators.
+            </p>
+          </article>
         </div>
       </section>
 

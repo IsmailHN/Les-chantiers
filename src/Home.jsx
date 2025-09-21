@@ -5,6 +5,10 @@ import Footer from "./Footer";
 import "./Home.css";
 
 import heroLogo from "./assets/images/logo.png";
+
+/* ⬇️ Use the image I generated (1902 × 670) */
+import heroBg from "./assets/images/background.png";
+
 import imgMaritime from "./assets/images/Maritime.png";
 import imgDiscovery from "./assets/images/Discovery.png";
 import imgDigital from "./assets/images/Digital.png";
@@ -14,15 +18,15 @@ const Home = () => {
     <div className="home">
       <Header />
 
-      {/* Hero Section */}
-      <section className="hero">
+      {/* HERO — fixed-size banner showing the image without animation */}
+      <section className="hero" style={{ backgroundImage: `url(${heroBg})` }}>
         <img src={heroLogo} alt="Logo" className="hero-logo" />
         <h1 className="title">Welcome to LES-CHANTIERS</h1>
         <p className="subtitle">Sea Technology &amp; Innovation</p>
         <Link className="explore-btn" to="/about-us">About us →</Link>
       </section>
 
-      {/* Solutions Section */}
+      {/* SOLUTIONS */}
       <section className="solutions">
         <div className="solution-card">
           <img src={imgMaritime} alt="Maritime" />

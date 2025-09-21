@@ -1,16 +1,15 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import "./Maritime.css"; // styles for this page
+import "./Maritime.css";
 import heroLogo from "./assets/images/logo.png";
 
 const Maritime = () => {
-  // You can also map these from an array if you prefer
   return (
     <div className="maritime-page">
       <Header />
 
-      {/* Hero (same vibe as other pages) */}
+      {/* Hero Section */}
       <section className="maritime-hero">
         <img src={heroLogo} alt="Logo" className="hero-logo" />
         <h1 className="hero-title">Maritime Solutions</h1>
@@ -19,68 +18,55 @@ const Maritime = () => {
         </p>
       </section>
 
-      {/* 12 editable containers */}
+      {/* Cards Section */}
       <section className="maritime-wrap">
         <div className="maritime-grid">
+
+          {/* Product */}
           <article className="maritime-card">
-            <h3>Container 1 Title</h3>
-            <p>Write your text for container 1 here. Describe your maritime capability or product.</p>
+            <h3>Product</h3>
+            <p>
+              Explore our advanced maritime products including integrated bridge systems,
+              dynamic positioning, automation, sonar, and remote support tools.
+            </p>
           </article>
 
+          {/* Segments */}
           <article className="maritime-card">
-            <h3>Container 2 Title</h3>
-            <p>Write your text for container 2 here. Describe use cases, features, or benefits.</p>
+            <h3>Segments</h3>
+            <p>
+              Serving defense, commercial shipping, offshore energy, research vessels,
+              and special operations with tailored solutions.
+            </p>
           </article>
 
+          {/* Services */}
           <article className="maritime-card">
-            <h3>Container 3 Title</h3>
-            <p>Write your text for container 3 here. Add any details you want your users to know.</p>
+            <h3>Services</h3>
+            <p>
+              From installation and commissioning to lifecycle support, we ensure your
+              systems deliver peak performance and safety at all times.
+            </p>
           </article>
 
+          {/* Support */}
           <article className="maritime-card">
-            <h3>Container 4 Title</h3>
-            <p>Write your text for container 4 here. You can paste longer content if needed.</p>
+            <h3>Support</h3>
+            <p>
+              24/7 technical assistance, remote monitoring, spare parts supply, and
+              predictive maintenance to maximize uptime.
+            </p>
           </article>
 
+          {/* Company */}
           <article className="maritime-card">
-            <h3>Container 5 Title</h3>
-            <p>Write your text for container 5 here. Keep it concise and impactful.</p>
+            <h3>Company</h3>
+            <p>
+              With over 25 years of experience in maritime technology, we are a trusted
+              partner dedicated to innovation and operational excellence.
+            </p>
           </article>
 
-          <article className="maritime-card">
-            <h3>Container 6 Title</h3>
-            <p>Write your text for container 6 here. Bullet points can be used with &lt;ul&gt; &lt;li&gt; if needed.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 7 Title</h3>
-            <p>Write your text for container 7 here. This section can highlight a key feature.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 8 Title</h3>
-            <p>Write your text for container 8 here. Mention reliability, safety, or performance.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 9 Title</h3>
-            <p>Write your text for container 9 here. Add certifications or standards if relevant.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 10 Title</h3>
-            <p>Write your text for container 10 here. You can also add links or calls to action.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 11 Title</h3>
-            <p>Write your text for container 11 here. Keep consistent tone across cards.</p>
-          </article>
-
-          <article className="maritime-card">
-            <h3>Container 12 Title</h3>
-            <p>Write your text for container 12 here. Summarize value and invite contact.</p>
-          </article>
         </div>
       </section>
 
